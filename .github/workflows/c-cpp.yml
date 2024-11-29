@@ -48,6 +48,10 @@
 
 
 
+
+
+
+
 name: C++ Build and Test Workflow
 on:
   push:
@@ -65,34 +69,30 @@ jobs:
       # Step 1: Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v3
-
-      # Step 2: Install dependencies (if needed)
+      
+      # Step 2: Set up dependencies
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake g++ make
-
+      
       # Step 3: Download Catch2
       - name: Download Catch2
-        run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp -O ./tests/catch.hpp
-
-      # Step 4: Verify Catch2 presence
-      - name: Verify Catch2 presence
-        run: ls -l ./tests/catch.hpp
-
-      # Step 5: Configure and build the project
+        run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
+      
+      # Step 4: Configure and build the project
       - name: Build project
         run: |
           mkdir build
           cd build
           cmake ..
           cmake --build .
-
-      # Step 6: Run the tests
+      
+      # Step 5: Run the tests
       - name: Run tests
         run: |
           cd build
           ./tests
-
-      # Step 7: Run the main program
+      
+      # Step 6: Run the main program
       - name: Run main calculator program
         run: |
           cd build
