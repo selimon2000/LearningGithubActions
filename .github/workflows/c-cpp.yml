@@ -143,6 +143,8 @@
 #           cd build
 #           ./calculator
 
+
+
 name: C++ Build and Test Workflow
 on:
   push:
@@ -159,29 +161,33 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake g++ make
-
+      
       - name: Download Catch2
         run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
-
+      
       - name: Build project
         run: |
           mkdir build
           cd build
           cmake ..
           cmake --build .
-
+      
       - name: Run tests
+        id: run-tests
         run: |
           cd build
           ./tests
-
-      - name: Exit on Test Failure
-        if: failure()
-        run: exit 1
-
+        # This will capture the test exit status
+      
+      - name: Check test results
+        if: steps.run-tests.outcome == 'failure'
+        run: |
+          echo "Tests failed. Stopping workflow."
+          exit 1
+      
       - name: Run main calculator program
         run: |
           cd build
