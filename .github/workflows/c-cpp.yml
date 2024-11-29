@@ -37,3 +37,9 @@ jobs:
         run: |
           cd build
           ./tests
+
+     # Step 6: Run the main program
+      - name: Run calculator program
+        run: |
+          cd build
+          ./calculator
