@@ -48,7 +48,6 @@
 
 
 
-
 name: C++ Build and Test Workflow
 on:
   push:
@@ -57,16 +56,29 @@ on:
   pull_request:
     branches:
       - main
+
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: self-hosted    # Changed this line from ubuntu-latest to self-hosted
+    runs-on: self-hosted
     steps:
       # Step 1: Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Configure and build the project
+      # Step 2: Install dependencies (if needed)
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ make
+
+      # Step 3: Download Catch2
+      - name: Download Catch2
+        run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp -O ./tests/catch.hpp
+
+      # Step 4: Verify Catch2 presence
+      - name: Verify Catch2 presence
+        run: ls -l ./tests/catch.hpp
+
+      # Step 5: Configure and build the project
       - name: Build project
         run: |
           mkdir build
@@ -74,13 +86,13 @@ jobs:
           cmake ..
           cmake --build .
 
-      # Step 3: Run the tests
+      # Step 6: Run the tests
       - name: Run tests
         run: |
           cd build
           ./tests
 
-      # Step 4: Run the main program
+      # Step 7: Run the main program
       - name: Run main calculator program
         run: |
           cd build
