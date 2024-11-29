@@ -1,3 +1,54 @@
+# name: C++ Build and Test Workflow
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   build-and-test:
+#     name: Build and Test
+#     runs-on: ubuntu-latest
+#     steps:
+#       # Step 1: Checkout the repository code
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       # Step 2: Set up dependencies
+#       - name: Install dependencies
+#         run: sudo apt-get update && sudo apt-get install -y cmake g++ make
+
+#       # Step 3: Download Catch2
+#       - name: Download Catch2
+#         run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
+
+#       # Step 4: Configure and build the project
+#       - name: Build project
+#         run: |
+#           mkdir build
+#           cd build
+#           cmake ..
+#           cmake --build .
+
+#       # Step 5: Run the tests
+#       - name: Run tests
+#         run: |
+#           cd build
+#           ./tests
+
+#      # Step 6: Run the main program
+#       - name: Run main calculator program
+#         run: |
+#           cd build
+#           ./calculator
+
+
+
+
+
+
 name: C++ Build and Test Workflow
 on:
   push:
@@ -6,25 +57,16 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted    # Changed this line from ubuntu-latest to self-hosted
     steps:
       # Step 1: Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up dependencies
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake g++ make
-
-      # Step 3: Download Catch2
-      - name: Download Catch2
-        run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
-
-      # Step 4: Configure and build the project
+      # Step 2: Configure and build the project
       - name: Build project
         run: |
           mkdir build
@@ -32,14 +74,14 @@ jobs:
           cmake ..
           cmake --build .
 
-      # Step 5: Run the tests
+      # Step 3: Run the tests
       - name: Run tests
         run: |
           cd build
           ./tests
 
-     # Step 6: Run the main program
-      - name: Run calculator program
+      # Step 4: Run the main program
+      - name: Run main calculator program
         run: |
           cd build
           ./calculator
