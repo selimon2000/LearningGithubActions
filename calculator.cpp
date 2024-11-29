@@ -3,7 +3,7 @@
 
 
 double Calculator::add(double a, double b) {
-    return a + b;
+    return a + b + 10;
 }
 
 double Calculator::subtract(double a, double b) {
