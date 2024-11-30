@@ -119,26 +119,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      # Don't have to run this everytime
+
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake g++ make
-      
+
       - name: Download Catch2
         run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
-      
+
       - name: Build project
         run: |
           mkdir build
           cd build
           cmake ..
           cmake --build .
-      
+
       - name: Run tests
         run: |
           cd build
           ./tests
-      
+        shell: bash  # Explicitly set shell to ensure proper error handling
+
       - name: Run main calculator program
         run: |
           cd build
