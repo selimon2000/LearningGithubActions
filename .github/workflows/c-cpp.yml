@@ -114,7 +114,7 @@ on:
 
 jobs:
   build-and-test:
-    name: Build and Testt
+    name: Build and Test
     runs-on: self-hosted
     steps:
       - name: Checkout code
