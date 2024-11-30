@@ -120,11 +120,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake g++ make
+      # Don't have to run this everytime
+      # - name: Install dependencies
+      #   run: sudo apt-get update && sudo apt-get install -y cmake g++ make
       
-      - name: Download Catch2
-        run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
+      # - name: Download Catch2
+      #   run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
       
       - name: Build project
         run: |
