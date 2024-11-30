@@ -1,50 +1,50 @@
 # GITHUB-HOSTED RUNNER ################################
 
-# name: C++ Build and Test Workflow
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
+name: C++ Build and Test Workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-# jobs:
-#   build-and-test:
-#     name: Build and Test
-#     runs-on: ubuntu-latest
-#     steps:
-#       # Step 1: Checkout the repository code
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-#       # Step 2: Set up dependencies
-#       - name: Install dependencies
-#         run: sudo apt-get update && sudo apt-get install -y cmake g++ make
+      # Step 2: Set up dependencies
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ make
 
-#       # Step 3: Download Catch2
-#       - name: Download Catch2
-#         run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
+      # Step 3: Download Catch2
+      - name: Download Catch2
+        run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
 
-#       # Step 4: Configure and build the project
-#       - name: Build project
-#         run: |
-#           mkdir build
-#           cd build
-#           cmake ..
-#           cmake --build .
+      # Step 4: Configure and build the project
+      - name: Build project
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build .
 
-#       # Step 5: Run the tests
-#       - name: Run tests
-#         run: |
-#           cd build
-#           ./tests
+      # Step 5: Run the tests
+      - name: Run tests
+        run: |
+          cd build
+          ./tests
 
-#      # Step 6: Run the main program
-#       - name: Run main calculator program
-#         run: |
-#           cd build
-#           ./calculator
+     # Step 6: Run the main program
+      - name: Run main calculator program
+        run: |
+          cd build
+          ./calculator
 
 
 
@@ -143,72 +143,3 @@
 #         run: |
 #           cd build
 #           ./calculator
-
-
-
-
-
-
-name: C++ Build and Test Workflow
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  build-and-test:
-    name: Build and Test
-    runs-on: self-hosted
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Debug Information
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Repository contents:"
-          ls -la
-
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake g++ make
-
-      - name: Download Catch2
-        run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
-
-      - name: Build project
-        run: |
-          mkdir -p build
-          cd build
-          cmake ..
-          cmake --build .
-        shell: bash
-
-      - name: List Build Directory
-        run: |
-          cd build
-          echo "Build directory contents:"
-          ls -la
-
-      - name: Run tests
-        run: |
-          cd build
-          if [ -f tests ]; then
-            ./tests
-          else
-            echo "Test executable not found!"
-            exit 1
-          fi
-
-      - name: Run main calculator program
-        run: |
-          cd build
-          if [ -f calculator ]; then
-            ./calculator
-          else
-            echo "Calculator executable not found!"
-            exit 1
-          fi
