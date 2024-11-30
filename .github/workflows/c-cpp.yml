@@ -137,7 +137,6 @@ jobs:
         run: |
           cd build
           ./tests
-        shell: bash  # Explicitly set shell to ensure proper error handling
 
       - name: Run main calculator program
         run: |
