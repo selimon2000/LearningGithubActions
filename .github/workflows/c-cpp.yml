@@ -128,17 +128,24 @@ jobs:
 
       - name: Build project
         run: |
-          mkdir build
+          mkdir -p build
           cd build
           cmake ..
           cmake --build .
+        shell: bash
 
       - name: Run tests
         run: |
           cd build
-          ./tests
+          # Fail the workflow if tests fail
+          if ! ./tests; then
+            echo "❌ Tests failed. Blocking push to main branch."
+            exit 1
+          fi
+        shell: bash
 
       - name: Run main calculator program
         run: |
           cd build
           ./calculator
+        shell: bash
