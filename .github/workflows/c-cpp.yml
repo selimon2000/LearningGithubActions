@@ -1,3 +1,4 @@
+# SELF-HOSTED RUNNER BUT ONLY KEEPS PUSHES ################################
 name: C++ Build and Test Workflow
 on:
   push:
@@ -9,44 +10,32 @@ on:
 
 jobs:
   build-and-test:
-    name: Build and Testt
+    name: Build and Test New
     runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          # This allows us to fetch the previous commit for potential rollback
-          fetch-depth: 0
-
+      
+      # Don't have to run this everytime
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake g++ make
-
+      
       - name: Download Catch2
         run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
-
+      
       - name: Build project
         run: |
           mkdir build
           cd build
           cmake ..
           cmake --build .
-
+      
       - name: Run tests
-        id: run-tests
         run: |
           cd build
           ./tests
-
-      - name: Rollback on Test Failure
-        if: failure()
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git reset --hard HEAD~1
-          git push origin main --force
-
+      
       - name: Run main calculator program
-        if: success()
         run: |
           cd build
           ./calculator
