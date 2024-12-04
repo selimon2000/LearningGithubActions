@@ -1,41 +1,91 @@
-# SELF-HOSTED RUNNER BUT ONLY KEEPS PUSHES ################################
-name: C++ Build and Test Workflow
+# # SELF-HOSTED RUNNER BUT ONLY KEEPS PUSHES ################################
+# name: C++ Build and Test Workflow
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   build-and-test:
+#     name: Build and Test
+#     runs-on: self-hosted
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+      
+#       # Don't have to run this everytime
+#       - name: Install dependencies
+#         run: sudo apt-get update && sudo apt-get install -y cmake g++ make
+      
+#       - name: Download Catch2
+#         run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
+      
+#       - name: Build project
+#         run: |
+#           mkdir build
+#           cd build
+#           cmake ..
+#           cmake --build .
+      
+#       - name: Run tests
+#         run: |
+#           cd build
+#           ./tests
+      
+#       - name: Run main calculator program
+#         run: |
+#           cd build
+#           ./calculator
+
+
+
+name: Example Workflow with Job Summary
+
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build-and-test:
-    name: Build and Test
-    runs-on: self-hosted
+  example-job:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      # Don't have to run this everytime
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake g++ make
-      
-      - name: Download Catch2
-        run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
-      
-      - name: Build project
+      - name: Set up environment
+        run: echo "Setting up environment..."
+
+      - name: Run build
+        id: build
         run: |
-          mkdir build
-          cd build
-          cmake ..
-          cmake --build .
-      
+          echo "Build completed successfully."
+          echo "status=success" >> $GITHUB_ENV
+
       - name: Run tests
+        id: tests
         run: |
-          cd build
-          ./tests
-      
-      - name: Run main calculator program
+          echo "Some tests failed."
+          echo "status=failure" >> $GITHUB_ENV
+
+      - name: Generate job summary with emojis
         run: |
-          cd build
-          ./calculator
+          echo "# Workflow Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Task         | Status  |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------------|---------|" >> $GITHUB_STEP_SUMMARY
+
+          # Add build status
+          if [ "$BUILD_STATUS" = "success" ]; then
+            echo "| Build        | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| Build        | ❌ Failure |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Add test status
+          if [ "$TEST_STATUS" = "success" ]; then
+            echo "| Tests        | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| Tests        | ❌ Failure |" >> $GITHUB_STEP_SUMMARY
+          fi
