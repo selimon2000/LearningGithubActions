@@ -95,6 +95,49 @@
 
 
 
+# name: C++ Build and Test Workflow
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   build-and-test:
+#     name: Build and Test
+#     runs-on: self-hosted
+    
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+      
+#       - name: Install dependencies
+#         run: sudo apt-get update && sudo apt-get install -y cmake g++ make
+      
+#       - name: Download Catch2
+#         run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
+      
+#       - name: Build project
+#         run: |
+#           mkdir -p build
+#           cd build
+#           cmake ..
+#           cmake --build .
+      
+#       - name: Run tests
+#         run: |
+#           cd build
+#           ./tests
+      
+#       - name: Run main calculator program
+#         run: |
+#           cd build
+#           ./calculator
+
+
+
 name: C++ Build and Test Workflow
 on:
   push:
@@ -112,6 +155,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for potential rollback
       
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake g++ make
@@ -127,11 +172,26 @@ jobs:
           cmake --build .
       
       - name: Run tests
+        id: tests
         run: |
           cd build
           ./tests
+        continue-on-error: true  # Allow subsequent steps to run even if tests fail
       
       - name: Run main calculator program
+        id: calculator
         run: |
           cd build
           ./calculator
+        continue-on-error: true  # Allow subsequent steps to run even if calculator fails
+      
+      - name: Rollback on Failure
+        if: steps.tests.outcome == 'failure' || steps.calculator.outcome == 'failure'
+        run: |
+          # Revert to the previous commit
+          git reset --hard HEAD~1
+          git push origin +HEAD:main
+        
+      - name: Fail workflow if tests or program failed
+        if: steps.tests.outcome == 'failure' || steps.calculator.outcome == 'failure'
+        run: exit 1
