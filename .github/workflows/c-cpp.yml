@@ -8,10 +8,11 @@
 #     branches:
 #       - main
 
+# runs-on: self-hosted
+
 # jobs:
 #   build-and-test:
 #     name: Build and Test
-#     runs-on: self-hosted
 #     steps:
 #       - name: Checkout code
 #         uses: actions/checkout@v4
@@ -39,6 +40,8 @@
 #         run: |
 #           cd build
 #           ./calculator
+
+
 
 
 
