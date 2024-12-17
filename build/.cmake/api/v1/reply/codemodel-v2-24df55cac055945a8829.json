@@ -41,14 +41,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "calculator::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-calculator-Debug-b22d27ca1ec422dbb367.json",
+					"jsonFile" : "target-calculator-Debug-a451b5e718bd29ab3259.json",
 					"name" : "calculator",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "tests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-tests-Debug-96d7b3a16b3a51828651.json",
+					"jsonFile" : "target-tests-Debug-2abef0448b8e1c55d540.json",
 					"name" : "tests",
 					"projectIndex" : 0
 				}

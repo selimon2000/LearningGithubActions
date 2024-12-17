@@ -1,3 +1,52 @@
+# name: C++ Build and Test Workflow
+# on:
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   build-and-test:
+#     name: Build and Test
+#     runs-on: ubuntu-latest
+    
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+      
+#       - name: Install dependencies
+#         run: |
+#           sudo apt-get update 
+#           sudo apt-get install -y cmake g++ make
+      
+#       - name: Clean previous build
+#         run: |
+#           rm -rf build
+#           rm -f CMakeCache.txt
+#           rm -rf CMakeFiles
+      
+#       - name: Download Catch2
+#         run: |
+#           mkdir -p external
+#           wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp -O external/catch.hpp
+      
+#       - name: Configure CMake
+#         run: cmake -B build -S .
+      
+#       - name: Build project
+#         run: cmake --build build
+      
+#       - name: Run tests
+#         run: ./build/tests
+      
+#       - name: Run main calculator program
+#         run: ./build/calculator
+
+
+
+
+
+
+
 name: C++ Build and Test Workflow
 on:
   pull_request:
@@ -30,7 +79,9 @@ jobs:
           wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp -O external/catch.hpp
       
       - name: Configure CMake
-        run: cmake -B build -S .
+        run: |
+          cmake -B build -S . \
+          -DCMAKE_CXX_FLAGS="-I${GITHUB_WORKSPACE}/external"
       
       - name: Build project
         run: cmake --build build
