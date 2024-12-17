@@ -220,6 +220,15 @@ Calculator_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 Calculator_SOURCE_DIR:STATIC=/home/selimon/Desktop/LearningGithubActions/LearningGithubActions
 
+//Value Computed by CMake
+YourProjectName_BINARY_DIR:STATIC=/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/build
+
+//Value Computed by CMake
+YourProjectName_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+YourProjectName_SOURCE_DIR:STATIC=/home/selimon/Desktop/LearningGithubActions/LearningGithubActions
+
 
 ########################
 # INTERNAL cache entries
