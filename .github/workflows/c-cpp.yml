@@ -44,53 +44,53 @@
 
 
 
-# name: Example Workflow with Job Summary
+name: Example Workflow with Job Summary
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
-# jobs:
-#   example-job:
-#     runs-on: ubuntu-latest
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Set up environment
-#         run: echo "Setting up environment..."
+    steps:
+      - name: Set up environment
+        run: echo "Setting up environment..."
 
-#       - name: Run build
-#         id: build
-#         run: |
-#           echo "Build completed successfully."
-#           echo "status=success" >> $GITHUB_ENV
+      - name: Run build
+        id: build
+        run: |
+          echo "Build completed successfully."
+          echo "status=success" >> $GITHUB_ENV
 
-#       - name: Run tests
-#         id: tests
-#         run: |
-#           echo "Some tests failed."
-#           echo "status=failure" >> $GITHUB_ENV
+      - name: Run tests
+        id: tests
+        run: |
+          echo "Some tests failed."
+          echo "status=failure" >> $GITHUB_ENV
 
-#       - name: Generate job summary with emojis
-#         run: |
-#           echo "# Workflow Summary" >> $GITHUB_STEP_SUMMARY
-#           echo "" >> $GITHUB_STEP_SUMMARY
-#           echo "| Task         | Status  |" >> $GITHUB_STEP_SUMMARY
-#           echo "|--------------|---------|" >> $GITHUB_STEP_SUMMARY
+      - name: Generate job summary with emojis
+        run: |
+          echo "# Workflow Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Task         | Status  |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------------|---------|" >> $GITHUB_STEP_SUMMARY
 
-#           # Add build status
-#           if [ "$BUILD_STATUS" = "success" ]; then
-#             echo "| Build        | ✅ Success |" >> $GITHUB_STEP_SUMMARY
-#           else
-#             echo "| Build        | ❌ Failure |" >> $GITHUB_STEP_SUMMARY
-#           fi
+          # Add build status
+          if [ "$BUILD_STATUS" = "success" ]; then
+            echo "| Build        | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| Build        | ❌ Failure |" >> $GITHUB_STEP_SUMMARY
+          fi
 
-#           # Add test status
-#           if [ "$TEST_STATUS" = "success" ]; then
-#             echo "| Tests        | ✅ Success |" >> $GITHUB_STEP_SUMMARY
-#           else
-#             echo "| Tests        | ❌ Failure |" >> $GITHUB_STEP_SUMMARY
-#           fi
+          # Add test status
+          if [ "$TEST_STATUS" = "success" ]; then
+            echo "| Tests        | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| Tests        | ❌ Failure |" >> $GITHUB_STEP_SUMMARY
+          fi
 
 
 
@@ -138,60 +138,60 @@
 
 
 
-name: C++ Build and Test Workflow
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+# name: C++ Build and Test Workflow
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
 
-jobs:
-  build-and-test:
-    name: Build and Test
-    runs-on: self-hosted
+# jobs:
+#   build-and-test:
+#     name: Build and Test
+#     runs-on: self-hosted
     
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Fetch full history for potential rollback
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0  # Fetch full history for potential rollback
       
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake g++ make
+#       - name: Install dependencies
+#         run: sudo apt-get update && sudo apt-get install -y cmake g++ make
       
-      - name: Download Catch2
-        run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
+#       - name: Download Catch2
+#         run: wget https://github.com/catchorg/Catch2/releases/download/v2.13.7/catch.hpp
       
-      - name: Build project
-        run: |
-          mkdir -p build
-          cd build
-          cmake ..
-          cmake --build .
+#       - name: Build project
+#         run: |
+#           mkdir -p build
+#           cd build
+#           cmake ..
+#           cmake --build .
       
-      - name: Run tests
-        id: tests
-        run: |
-          cd build
-          ./tests
-        continue-on-error: true  # Allow subsequent steps to run even if tests fail
+#       - name: Run tests
+#         id: tests
+#         run: |
+#           cd build
+#           ./tests
+#         continue-on-error: true  # Allow subsequent steps to run even if tests fail
       
-      - name: Run main calculator program
-        id: calculator
-        run: |
-          cd build
-          ./calculator
-        continue-on-error: true  # Allow subsequent steps to run even if calculator fails
+#       - name: Run main calculator program
+#         id: calculator
+#         run: |
+#           cd build
+#           ./calculator
+#         continue-on-error: true  # Allow subsequent steps to run even if calculator fails
       
-      - name: Rollback on Failure
-        if: steps.tests.outcome == 'failure' || steps.calculator.outcome == 'failure'
-        run: |
-          # Revert to the previous commit
-          git reset --hard HEAD~1
-          git push origin +HEAD:main
+#       - name: Rollback on Failure
+#         if: steps.tests.outcome == 'failure' || steps.calculator.outcome == 'failure'
+#         run: |
+#           # Revert to the previous commit
+#           git reset --hard HEAD~1
+#           git push origin +HEAD:main
         
-      - name: Fail workflow if tests or program failed
-        if: steps.tests.outcome == 'failure' || steps.calculator.outcome == 'failure'
-        run: exit 1
+#       - name: Fail workflow if tests or program failed
+#         if: steps.tests.outcome == 'failure' || steps.calculator.outcome == 'failure'
+#         run: exit 1
