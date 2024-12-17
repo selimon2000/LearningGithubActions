@@ -1,11 +1,18 @@
 cmake_minimum_required(VERSION 3.10)
-project(Calculator)
+project(YourProjectName)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Print out directories for debugging
+message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+message(STATUS "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}")
 
-# Add main executable
-add_executable(calculator main.cpp calculator.cpp)
+# Use CMAKE_SOURCE_DIR and CMAKE_BINARY_DIR for paths
+set(SOURCES 
+    ${CMAKE_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_SOURCE_DIR}/src/calculator.cpp
+)
 
-# Add test executable
-add_executable(tests test_calculator.cpp calculator.cpp)
+add_executable(calculator ${SOURCES})
+add_executable(tests 
+    ${CMAKE_SOURCE_DIR}/tests/test_main.cpp
+    ${SOURCES}
+)
