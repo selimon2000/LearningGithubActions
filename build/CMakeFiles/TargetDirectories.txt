@@ -1,0 +1,4 @@
+/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/build/CMakeFiles/calculator.dir
+/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/build/CMakeFiles/tests.dir
+/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/build/CMakeFiles/edit_cache.dir
+/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/build/CMakeFiles/rebuild_cache.dir

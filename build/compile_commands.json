@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/build",
+  "command": "/usr/bin/c++  -I/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/external -g -std=gnu++17 -o CMakeFiles/calculator.dir/main.cpp.o -c /home/selimon/Desktop/LearningGithubActions/LearningGithubActions/main.cpp",
+  "file": "/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/main.cpp",
+  "output": "CMakeFiles/calculator.dir/main.cpp.o"
+},
+{
+  "directory": "/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/build",
+  "command": "/usr/bin/c++  -I/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/external -g -std=gnu++17 -o CMakeFiles/calculator.dir/calculator.cpp.o -c /home/selimon/Desktop/LearningGithubActions/LearningGithubActions/calculator.cpp",
+  "file": "/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/calculator.cpp",
+  "output": "CMakeFiles/calculator.dir/calculator.cpp.o"
+},
+{
+  "directory": "/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/build",
+  "command": "/usr/bin/c++  -I/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/external -g -std=gnu++17 -o CMakeFiles/tests.dir/test_calculator.cpp.o -c /home/selimon/Desktop/LearningGithubActions/LearningGithubActions/test_calculator.cpp",
+  "file": "/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/test_calculator.cpp",
+  "output": "CMakeFiles/tests.dir/test_calculator.cpp.o"
+},
+{
+  "directory": "/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/build",
+  "command": "/usr/bin/c++  -I/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/external -g -std=gnu++17 -o CMakeFiles/tests.dir/calculator.cpp.o -c /home/selimon/Desktop/LearningGithubActions/LearningGithubActions/calculator.cpp",
+  "file": "/home/selimon/Desktop/LearningGithubActions/LearningGithubActions/calculator.cpp",
+  "output": "CMakeFiles/tests.dir/calculator.cpp.o"
+}
+]
